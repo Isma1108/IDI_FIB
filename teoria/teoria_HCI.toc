@@ -1,0 +1,26 @@
+\babel@toc {catalan}{}
+\contentsline {section}{\numberline {1}Introducció}{3}{section.1}%
+\contentsline {section}{\numberline {2}Disseny d'Interacció i Avaluació}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Fonaments de la interacció bàsica a l'interfície d'usuari}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Teoría de la informació}{3}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Llei de Hick-Hyman}{4}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}Llei de Fitts}{5}{subsubsection.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Lleis de creuament i direcció (\textit {Crossing and Steering: Continuous Gestures})}{5}{subsubsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.2}Llei de Fitts al disseny d'interfícies d'usuari}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Dispositius apuntadors}{6}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Dispositius de control directe}{6}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Dispositius de control indirecte}{7}{subsubsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.4}Mecanografia i teclats}{7}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Tests d'Usabilitat}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Conceptes}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Tests d'usabilitat}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Tests formals d'usabilitat}{8}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Ambient}{8}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Tasques i rols}{9}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.4}Tests simplificats d'usabilitat}{9}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Test d'usabilitat Guerrilla}{9}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Usability testing on 10 cents a day}{9}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Testing remot}{10}{subsubsection.3.4.3}%
+\contentsline {subsubsection}{\numberline {3.4.4}Avaluació heurística}{10}{subsubsection.3.4.4}%
+\contentsline {subsection}{\numberline {3.5}Casos d'ús}{10}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Gràfiques per a la representació d'informació (Tema extra)}{10}{section.4}%

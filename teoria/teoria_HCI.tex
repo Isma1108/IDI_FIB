@@ -1,0 +1,349 @@
+%----------------------------------------------------------------------------------------
+%	PAQUETES Y CONFIGURACIÓN DEL DOCUMENTO
+%----------------------------------------------------------------------------------------
+
+%%% Configuración del papel.
+\documentclass[12pt]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[catalan]{babel}
+\usepackage{blindtext}
+\usepackage{graphicx} 
+\usepackage[margin=3cm]{geometry}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+  \normalfont \normalsize 
+  \textsc{FIB: Interacció i Disseny d'Interfícies} \\ [25pt] 
+  \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+  \huge Resum per l'examen final \\ % The assignment title
+  \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Ismael El Basli}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+    \maketitle
+    \newpage
+    \tableofcontents
+    \newpage
+    \section{Introducció}
+    La part d'usabilitat i principis de disseny, a part de les lleis de percepció, ja van entrar al primer parcial, motiu pel qual no apareixen en
+    aquest resum. L'objectiu d'aquest document és resumir de forma breu els conceptes d'HCI (\textit{Human Computer Interaction}) més importants
+    per l'examen final.
+
+    \section{Disseny d'Interacció i Avaluació}
+    \subsection{Fonaments de la interacció bàsica a l'interfície d'usuari}
+    \subsubsection{Teoría de la informació}
+    Cal tenir clar els següents conceptes:
+   
+    Si \textit{d} és un dispositiu que produeix els símbols A, B, C i D amb la mateixa probabilitat:
+    \begin{itemize}
+        \item El total de símbols és M = 4
+        \item Cada cop que un símbol es produeix no tenim certesa de quin símbol es generarà
+        \item La probabilitat de que un símbol aparegui és de $P = \frac{1}{M} = \frac{1}{4}$
+    \end{itemize}
+
+    Aquesta \textbf{incertesa} que tenim la mesurem amb $\log_{2}(M)$. En el nostre cas, el resultat són 2 bits.
+    Aquesta mesura resulta ser molt bona, ja que per exemple amb M = 1 (només un símbol), no hi ha incertesa ja que
+    $\log_2(1) = 0$.
+    
+    \hfill \break
+    També ens podria sortir a l'examen un exercici amb dos dispositius d i e, un amb sortides A, B i C i l'altre amb
+    1, 2, respectivament. En aquest cas, el total de símbols s'obté fent totes les \textbf{combinacions} possibles (M = 6).
+    La incertesa és per tant la suma d'incerteses: $log_2(6) = log_2(2) + log_2(3)$.
+
+
+    \hfill \break
+    Si reescribim la fòrmula de l'incertesa (incertesa = $log_2(M)$, on M = total de símbols), tenint en compte que 
+    $P = \frac{1}{M}$ obtenim:
+    \begin{itemize}
+        \item $log_{2}(M) = log_{2}((\frac{1}{M})^{-1}) = log_{2}(P^{-1}) = -log_{2}(P)$
+    \end {itemize}
+    Aquest $-log_{2}(P)$ rep el nom de \textbf{sorpresa}, i es correspon amb la sorpresa de trobar un símbol determinat.
+    Si tenim M símbols amb probabilitat $p_{i}$, s'ha de complir $\sum_{i=1}^{M}p_{i} = 1$.
+
+    \newpage
+    Tenint en compte tots els conceptes mencionats abans, s'obté l'equació de l'\textbf{entropia de Shanon}, que mesura la quantitat
+    d'informació que s'espera rebre, on H és l'entropia, N és el nombre d'alternatives i $p_{i}$ la probabilitat de
+    l'alternativa iéssima: \hfill \break
+
+    $H = \sum_{i=1}^{N}p_{i}log_{2}(\frac{1}{p_{i}}) = -\sum_{i=1}^{N}p_{i}log_{2}(p_{i})$
+
+    \hfill \break
+
+    Si aquesta entropia ens dóna un resultat d'1, això significa que la font necessita una mitja d'1 bit per símbol.
+    En aquest punt, cal destacar que és possible tenir menys d'1 bit per símbol, jugant amb les codificacions dels símbols
+    i fent que aquells que apareixen més tinguin una codificació amb menys bits. (Com a detall, un bon algorisme per aquest objectiu 
+    és la codificació Huffman, que construeix la solució utilitzant un arbre binari). Cal tenir en compte també que no s'han considerat
+    les interferències, i que les equacions es compliquen una mica més considerant-ho. ($R = H(x) - H_{y}(x)$, on $H_y(x)$ 
+    correspon a l'equivocació, l'informació requerida per quantificar l'error.)
+    
+
+    \subsubsection{Llei de Hick-Hyman}
+    Descriu el temps de decisió humà com a funció del contingut d'informació transmés per un estímul visual.
+    \hfill \break \\
+    El temps per prendre una decisió (\textit{Reaction Time}) és: $RT = a + bH_T$, on a i b són constants i $H_T$ l'informació transmesa.
+    \\
+    Com que $H_T = log_2(n+1)$, on n són les alternatives equiprobables, llavors: $RT = a + blog_2(n+1)$.
+
+    \hfill \break
+    Hick va comprobar la correctesa d'aquesta fòrmula, i Hyman va trobar que també servia per alternatives no equiprobables.
+    
+    
+    \begin{itemize}
+        \item + Per les localitzacions més usades i freqüents, el temps de decisió s'ajusten a la llei de Hick-Hyman
+        \item - Per les localitzacións no apreses, s'ajusten a un cerca lineal (NO logarítmica)
+        \item - A més, els usuaris nous també busquen amb temps de cerca lineals. 
+    \end{itemize}
+
+    En conclusió, la llei de Hick-Hyman no serveix per tots els casos, els temps de decisió humans no sempre s'ajusten a una corva 
+    logarítmica que és funció dels estímuls visuals.
+    \newpage
+
+    \subsubsection{Llei de Fitts}
+    Estableix una relació lineal entre el temps de moviment (MT) i la dificultat de la tasca.
+    \\
+    $MT = a + b ID$, on ID és l'índex de dificultat, a correspon als temps d'inici/parada en segons i la constant b 
+    és inherent a la velocitat del dispositiu. Pel que fa a ID, $ID = log_2{\frac{2A}{W}}$, on A és l'amplitud del moviment i 
+    W l'amplada de l'objectiu. És a dir, com més amplitud de moviment més dificultat i com més amplada de l'objectiu menys dificultat.
+    \\
+    Els resultats experimentals mostren que sí que hi ha una relació lineal entre el MT i l'ID. La situació de màxima dificultat seria
+    una W molt petita i una A molt gran. A més, cal mencionar que han aparegut diverses fòrmules que deriven d'aquesta cambiant certs paràmetres,
+    per adaptar-la a altres situacions possibles. (en totes elles, l'ID és funció de la distància cap a l'objectiu i la seva mida). D'aquestes, la que ens podria
+    sortir en un exercici és la variant de MacKenzie's (una de les més acceptades): $MT = a + blog_2(\frac{D}{W} + 1)$, on D és la distància del moviment, i els demés paràmetres el mateix que abans.
+
+    \begin{itemize}
+        \item + S'ha demostrat la validesa de la llei de Fitts en múltiples configuracions i dispositius.
+        \item + La llei de Fitts és un bon model predictiu del moviment humà.
+        \item - La llei de Fitts no modela bé objectius petits i pantalles tàctils (hi ha noves fòrmules per això, com FFitts).
+    \end{itemize}
+
+    \subsubsection{Lleis de creuament i direcció (\textit{Crossing and Steering: Continuous Gestures})}
+    Pel que fa a la llei de Crossing, només cal recordar que creuar un objecte és més fàcil que donar-li doble click, ja que els llapissos
+    o els dits naturalment condueixen a gestos de creuament. Per tant, creuar objectes pot ser una bona alterativa per usuaris amb dificultats
+    pels clicks/doble clicks (a més que amb un mateix moviment és poden creuar múltiples objectes). En base a experiments, el creuament en comparació amb
+    apuntar i clickar, aconsegueix resultats similars (o + ràpids) i l'error és menor, però es torna més difícil quan la distància entre objectius és petita.
+    
+    \hfill \break
+    Per altra banda, la llei de Steering ens diu que navegar per un camí de mida restringida és útil a les interfícies d'usuari (menus imbricats, etc). Els resultats
+    mostren que la llei de Steering és aplicable a diferents configuracions.
+
+    \newpage
+    \subsection{Llei de Fitts al disseny d'interfícies d'usuari}
+    Com ja s'ha mencionat abans, la llei de Fitts prediu amb precisió el moviment d'apuntar, mostrant que a major distància més difícil és la selecció.
+    Per tant, podem tenir en compte la llei per modificar la nostra UI, cambiant l'amplada de l'objectiu o la distància virtual fins ell. A continuació, alguns
+    consells basats en la llei de Fitts:
+
+    \begin{itemize}
+        \item Incrementar la mida de l'objectiu
+        \item Mantenir els objectiu relacionats un a prop de l'altre i els elements oposats allunyats entre ells (sense oblidar els principis d'usabilitat)
+        \item Filtres a prop del camp de cerca
+        \item Als menus emergents, reduïr la distància a viatjar (opcions a prop de l'ubicació de l'opció del menú).
+        \item Als menus pastís, no haurien d'existir oclusions (és difícil de dissenyar)
+        \item Agrupar objectius sempre que es pugui
+    \end{itemize}
+
+    \hfill \break
+    Per altra banda, per accelerar l'adquisició d'objectius:
+
+    \begin{itemize}
+        \item Objectius d'expansió dinàmica: Incrementar la mida dels objectius propers a l'apuntador, o incrementar la mida del cursor
+        quan es troba a prop dels objectius (bubble cursor)
+        \item Moviments de l'objectiu: Moure els objectius cap a l'usuari.
+        \item Relació entre l'amplitud dels moviments de la mà real de l'usuari i la dels moviments del cursor virtual, fer el mapeig constant, 
+        que depengui de la velocitat del mouse o que depengui de la posició del cursor. (Mac OSX i Windows utilitzen acceleració del ratolí). Un punt 
+        negatiu és que no queda clar com afecta aquest mapeig a la percepció i la productivitat.
+    \end{itemize}
+
+    \subsection{Dispositius apuntadors}
+        \subsubsection{Dispositius de control directe}
+        Són tots aquells en els que es treballa directament amb la superfície de la pantalla.
+        \begin{itemize}
+            \item \textbf{Principals inconvenients}: Imprecisió de l'apuntat (per la qualitat de la pantalla i la mida de l'apuntador). Possibles solucions són 
+            \textit{Land-on strategy} i \textit{Lift-off strategy}, on el click inicial crea un cursor.
+            \item \textbf{Principals avantatges}: Les pantalles tàctils poden ser dissenyades sense parts mòvils i el poder tocar la pantalla amb múltiples dits permet
+            l'entrada de dades més complexes i en conseqüència més opcions de manipulació de l'interfície (per exemple, zoom amb els dits)
+
+        \end{itemize}
+    
+        \subsubsection{Dispositius de control indirecte}
+        Són tots aquells on es treballa fora de la superfície de la interfície (es mapeja el moviment de l'usuari a un element d'apuntat virtual, per exemple el cursor).
+        Les principals característiques són: alleuja la fatiga de les mans, s'elimina l'oclusió de la pantalla, el ratolí és el que mana a l'interacció.
+
+    \subsection{Mecanografia i teclats}
+    Existeixen múltiples disposicions de teclat a l'actualitat, però la predominant és sens dubte \textbf{QWERTY}. Es col·loquen les tecles que acostumen a emprar-se juntes
+    amb bastanta distància física, per distribuïr la feina entre tots els dits i millorar així la nostra eficiencia. Però el principal problema és que no tothom escriu en
+    anglès, que és el llenguatge pel qual es va fer aquesta distribució.
+
+    \hfill \break
+    Una altra distribució ergonòmica és \textbf{AZERTY}, optimitzada pel francès. Però, la principal alternativa a QWERTY és \textbf{DVORAK}, on les vocals es troben una 
+    al costat de l'altra, de forma que les lletres més comunes es troben als llocs on descansen els dits. Aquesta distribució es va inventar amb l'objectiu de reduïr les
+    distàncies de viatge entre tecles. De fet, ha permès millores de fins al 30\% i menys errors, però és molt difícil reemplaçar a QWERTY perquè té un nivell d'aceptació molt elevat,
+    tothom hi està acostumbrat, a diferència de DVORAK.
+
+
+    \hfill \break
+    Les disposicions del teclat s'han de dissenyar de manera que:
+    \begin{itemize}
+        \item La càrrega sigui equilibrada per cada mà
+        \item Es maximitzi la càrrega a la fila central
+        \item Es maximitzi la freqüència d'alternar mà
+        \item Es minimitzi la freqüència de usar el mateix dit de forma seguida
+    \end{itemize}
+
+    Pel que fa a les distribucions tàctils, els principals inconvenients són: la mida depèn de la pantalla, es requerex més atenció, i hi ha molts més errors. De fet, 
+    aquest és el cas dels dispositius mòvils, on les principals distribucions són:
+    \begin{itemize}
+        \item \textbf{Minuum}: escriuen un o dos dits. Es comprimeixen les tres files d'un teclat en una sola.
+        \item \textbf{Single finger gesture typing}: El dit travessa les lletres sense abandonar la superfície de la pantalla. Més cómode però no més ràpid que l'escriptura regular.
+        \item \textbf{KALQ}: Optimitzat per escriure amb els dos polzes.
+        \item \textbf{Two finger gesture typing}: escriptura amb dos dits (polzes), però el que coneixem de sempre, KALQ separa el teclat en dos.
+    \end{itemize}
+
+    Llavors, en un teclat virtual cal considerar per l'usabilitat els següents elements:
+    \begin{itemize}
+            \item Auto-correcció (model predictiu, i que l'usuari decideixi)
+            \item Majúscules automàtiques (en les direccions mail deshabilitar-ho)
+            \item Dissenys adequats pel tipus d'entrada (es poden fer dissenys dedicats)
+            \item Suport per múltiples llenguatges (possibilitat de cambiar de llenguatge fàcilment)
+    \end{itemize}
+
+    \section{Tests d'Usabilitat}
+    \subsection{Conceptes}
+    L'usabilitat es tracta de la facilitat d'ús i acceptabilitat d'un sistema o producte per a una classe particular d'usuaris
+    que realitzen activitats específiques en un entorn concret. Per ser útil, la usabilitat ha de ser específica.
+
+    \hfill \break
+    Però com fem els tests d'usabilitat? La facilitat d'ús és inversament proporcional al pes de la dificultat que tenen les persones 
+    a l'utilitzar el programari.
+
+    \subsection{Tests d'usabilitat}
+    Hi ha dos grups principals de tests, separats pels seus objectius:
+    \begin{itemize} 
+        \item Per determinar problemes d'usabilitat, s'utilitza \textit{Iterative Testing}.
+        \item Per mesurar el rendiment, on s'inclouen dues tasques fonamentals: el desenvolupament dels objectius 
+        d'usabilitat i \textit{Iterative Testing} per determinar si el producte a prova compleix els objectius.
+    \end{itemize}
+    
+    Hi ha molts tipus de tests d'usabilitat: informals o formals, remots o locals, el software evaluat pot variar, etc.
+
+    \subsection{Tests formals d'usabilitat}
+    \subsubsection {Ambient}
+    Les proves formals d'usabilitat requereixen que es realitzin en un ambient controlat. Per exemple, per segons quin test es podria
+    necessitar un conjunt d'aules insonoritzades o diferent tipus d'equipament i àrees (de participant, d'observador, de càmeres, etc)
+
+    \subsubsection{Tasques i rols}
+    El flux de treball per aquests tests es basa en tres fases: preparació, implementació i realització dels informes.
+
+    Existeixen diferents rols a l'hora de fer les diferens tasques:
+    \begin{itemize} 
+        \item Administrador dels tests: És el que s'encarrega principalment de la fase de preparació.
+        \item \textit{Briefer}
+        \item Operador de càmera    
+        \item Enregistrador de dades
+        \item Operador d'ajuda
+        \item Expert en el producte
+        \item Persona experta en estadística
+    \end{itemize}
+
+    A la pipeline d'execució del test, desde la preparació fins la realització dels informes, tots aquests rols intervenen en determinades activitats. A les diapos apareix
+    tot de forma molt detallada, però considero que no té importància.
+
+    \subsection{Tests simplificats d'usabilitat}
+    Són tests més senzills, en el sentit que els pot fer una persona sola sense la necessitat d'un gran grup.
+    \subsubsection{Test d'usabilitat Guerrilla}
+    Demanar a algú conegut d'utilitzar una interfície determinada i preguntar-li que opina, i fer preguntes de l'estil: Tú què faries?, per posteriorment analitzar les
+    seves sensacions i propostes.
+    \subsubsection{Usability testing on 10 cents a day}
+    Similar a Guerrilla, es preparen algunes tasques a evaluar, i s'ofereix a algun company de treball la realització d'unes tasques determinades, capturant i gravant la
+    seva interacció. Posteriorment fer un informe.
+    \subsubsection{Testing remot}
+    Igual que els tests tradicionals, però els participants dels tests es troben en ubicacions físiques diferents, poden fer els tests a casa. Els principals avantatges són: 
+    més econòmic i fàcil, habitualment més ràpid. Els principals inconvenients són: no podem llegir el llenguatge corporal, és difícil decidir quan parlar/nteractuar.
+    Hi ha dos tipus principals de testing remot: el no moderat, on els usuaris realitzen la tasca sols, i el moderat, on els usuaris tenen accés a un facilitador.
+    \subsubsection{Avaluació heurística}
+    Entre 3 i 5 experts d'usabilitat avaluen una aplicació o interfície. Pot ser ràpida i efectiva i és compatible amb els demés mètodes de testing.
+
+    \subsection{Casos d'ús}
+    Pel que fa a aquest apartat, a les diapositives es mostren exemples d'aplicacions/interfícies reals, a les quals se'ls hi aplica un test d'usabilitat determinat. És convenient simplement fer-hi
+    una ullada.
+
+    \section{Gràfiques per a la representació d'informació (Tema extra)}
+    És important que les gràfiques que usem per representar informació siguin clares, concises i correctes.\\
+    Alguns principis bàsics a seguir quan es construeixen gràfiques són:
+    \begin{itemize}
+        \item Hi ha d'haver una proporció alta de dades als gràfics $\rightarrow$ els punts de dades han de ser clarament visibles (que no els tapi títols, etc).
+        \item S'ha d'utilitzar la gràfica correcte pel propòsit que tenim. No hem d'utilitzar gràfics circulars (\textit{Pie Chart}) per tot!! Hi ha tres tipus principals de gràfiques:
+        \begin{itemize}
+            \item Gràfiques de tendència (\textit{Trend Graphs}): útil per emfatitzar una evolució de cert paràmetre a través del temps
+            \item Gràfiques de mida relativa (\textit{Relative Size Graphs}): gràfiques de barres, on totes les barres tenen la mateixa amplada, per notar diferència únicament en la longitud.
+            \item Gràfiques de composició (\textit{Composition Graphs}): Aquí és on habitualment la gent empra de forma incorrecta els \textit{pie-charts}, ja que la gent no està acostumada a
+            interpretar i comparar angles $\rightarrow$ una millor opció és utilitzar gràfics de barres.
+
+        \end{itemize}
+        \item El gràfic ha d'estar ben etiquetat i ha de tenir títol.
+        \item És important pensar en la presentació general del gràfic. (escollir bones escales pels eixos, els gràfics de barres s'han d'anclar al valor 0, traçar línies per diferenciar grups, etc)
+    \end{itemize}
+
+    \hfill \break
+    Pel que fa a alguns errors comuns:
+    \begin{itemize}
+        \item Tipus de gràfic incorrecte (tendències millor amb línies i composicions millor amb barres segmentades).
+        \item Falta de text (falta alguna etiqueta o no hi ha títol).
+        \item Escala inconsistent: l'escala no es constant a tot el gràfic
+        \item Punt zero fora de lloc (no es troba a la part inferior)
+        \item Efectes gràfics deficients: afegir ombres, efectes tridimensionals, etc, pot distorsionar el gràfic i afegir-hi poca informació o cap. En particular,
+        else efectes 3D són molt deficients, ja que sovint dificulten més l'interpretació del gràfic, i pitjor si es troba inclinat.
+        \item Confusió d'àrea i longitud
+        \item Sense ajust per inflació. (Les quantitats en dòlars s'han d'ajustar per l'inflació, evitant comparacions errònees).
+        \item Massa precisió: Donar molts dígits significatius és una tonteria, cal utilitzar una escala adequada.
+    \end{itemize}
+
+    En el document del tema extra, hi ha una sèrie d'exemples de gràfiques amb errors. Convé fer-hi una ullada. (Cal recordar que el terme ducks que es menciona sovint es correspon a elememts innecessaris
+    que no aporten informació).
+
+\end{document}
+
+
+
+
+
+
+
+
+
